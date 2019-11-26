@@ -112,7 +112,7 @@ def main():
 
 
 ip_port = params.ip_port
-platform_url = 'http://' + ip_port + '/m2m/subscriptions'
+platform_url = ip_port + '/m2m/subscriptions'
 user_url = platform_url + '?type=resources'
 login = params.login
 secret = params.secret
