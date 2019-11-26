@@ -53,7 +53,8 @@ def show_subs_criteria(url, headers):
                     if i == "criteria":
                         print(subs_list['subscriptionId'])
                     else:
-                        print('No criteria in subscription found')      # Not sure if working
+                        print('No criteria in subscription found')  # Not sure if working
+                        break
 
 
 def delete_subs_criteria(url, headers):
