@@ -3,88 +3,74 @@ import base64
 import json
 import params
 
+def get_sub_content(url, headers):
+    response = request.get(url, headers=headers)
+    response.raise_for_status()
+    sub_content = json.loads(response.content)
+    return sub_content
+
+
 
 def show_subs(url, headers):
     """
     Function shows all subscriptions in the tenant with criteria defined
-
         Parameters:
         url (str): takes url from the subscription_operations.conf
-
         Returns:
         List of strings with subscription id and details for each subscription
     """
-    response = requests.get(url, headers=headers)
-    sub_content = json.loads(response.content)
-    if response.status_code == 404:
-        print(headers)
-        print(url)
-        print('Server response {}'.format(response.content))
-    else:
-        for x in range(len(sub_content['subscriptions'])):
-            print((sub_content['subscriptions'])[x])
+    sub_content = get_sub_content(url, headers)
+
+    for x in range(len(sub_content['subscriptions'])):
+        print((sub_content['subscriptions'])[x])
 
 
 def show_subs_criteria(url, headers):
     """
     Function shows all subscriptions in the tenant
-
         Parameters:
         url (str): takes url from the subscription_operations.conf
         login (str): takes login from the subscription_operations.conf
         secret (str): takes secret from the subscription_operations.conf
-
         Returns:
         List of strings with subscription id of that subscriptions that have criteria defined
     """
-    response = requests.get(url, headers=headers)
-    sub_content = json.loads(response.content)
-    if response.status_code == 404:
-        print(headers)
-        print(url)
-        print('Server response {}'.format(response.content))
-    else:
-        if sub_content == '':
-            print('Subscription is empty')              # Not sure if working
-        else:
-            for x in range(len(sub_content['subscriptions'])):
-                subs_list = (sub_content['subscriptions'])[x]
-                for i in subs_list:
-                    if i == "criteria":
-                        print(subs_list['subscriptionId'])
-                    else:
-                        print('No criteria in subscription found')  # Not sure if working
-                        break
+    sub_content = get_sub_content(url, headers)
 
-
-def delete_subs_criteria(url, headers):
-    """
-    Function deletes all subscriptions with criteria defined
-
-        Parameters:
-        url (str): takes url from the subscription_operations.conf
-        login (str): takes login from the subscription_operations.conf
-        secret (str): takes secret from the subscription_operations.conf
-
-        Returns:
-        List of strings with subscription id of that subscriptions that have criteria defined and deleted
-    """
-    response = requests.get(url, headers=headers)
-    sub_content = json.loads(response.content)
-    if response.status_code == 404:
-        print(headers)
-        print(url)
-        print('Server response {}'.format(response.content))
+    if sub_content == '':
+        print('Subscription is empty')              # Not sure if working
     else:
         for x in range(len(sub_content['subscriptions'])):
             subs_list = (sub_content['subscriptions'])[x]
             for i in subs_list:
                 if i == "criteria":
                     print(subs_list['subscriptionId'])
-                    url = (platform_url + '/' + subs_list['subscriptionId'] + '')
-                    print(url)
-                    delete = requests.delete(url, headers=headers)
-                    print('Server response {}'.format(delete.content))
+                else:
+                    print('No criteria in subscription found')  # Not sure if working
+                    break
+
+
+def delete_subs_criteria(url, headers):
+    """
+    Function deletes all subscriptions with criteria defined
+        Parameters:
+        url (str): takes url from the subscription_operations.conf
+        login (str): takes login from the subscription_operations.conf
+        secret (str): takes secret from the subscription_operations.conf
+        Returns:
+        List of strings with subscription id of that subscriptions that have criteria defined and deleted
+    """
+    sub_content = get_sub_content(url, headers)
+    
+    for x in range(len(sub_content['subscriptions'])):
+        subs_list = (sub_content['subscriptions'])[x]
+        for i in subs_list:
+            if i == "criteria":
+                print(subs_list['subscriptionId'])
+                url = (platform_url + '/' + subs_list['subscriptionId'] + '')
+                print(url)
+                delete = requests.delete(url, headers=headers)
+                print('Server response {}'.format(delete.content))
 
 
 def main():
@@ -122,5 +108,5 @@ user_auth64 = base64.b64encode(login_pass.encode()).decode()
 user_headers = {'Content-Type': 'application/json', 'Accept': 'application/json',
                 'Authorization': 'Basic %s' % user_auth64}
 
-if __name__ == '__main__':
+if _name_ == '_main_':
     main()
