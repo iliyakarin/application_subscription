@@ -3,12 +3,12 @@ import base64
 import json
 import params
 
+
 def get_sub_content(url, headers):
-    response = request.get(url, headers=headers)
+    response = requests.get(url, headers=headers)
     response.raise_for_status()
     sub_content = json.loads(response.content)
     return sub_content
-
 
 
 def show_subs(url, headers):
@@ -38,7 +38,7 @@ def show_subs_criteria(url, headers):
     sub_content = get_sub_content(url, headers)
 
     if sub_content == '':
-        print('Subscription is empty')              # Not sure if working
+        print('Subscription is empty')  # Not sure if working
     else:
         for x in range(len(sub_content['subscriptions'])):
             subs_list = (sub_content['subscriptions'])[x]
@@ -61,7 +61,7 @@ def delete_subs_criteria(url, headers):
         List of strings with subscription id of that subscriptions that have criteria defined and deleted
     """
     sub_content = get_sub_content(url, headers)
-    
+
     for x in range(len(sub_content['subscriptions'])):
         subs_list = (sub_content['subscriptions'])[x]
         for i in subs_list:
