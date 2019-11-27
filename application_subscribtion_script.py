@@ -40,13 +40,14 @@ def show_subs_criteria(url, headers):
     if sub_content == '':
         print('Subscription is empty')  # Not sure if working
     else:
+        print('\n\nSubscription list with criteria defined: ')
         for x in range(len(sub_content['subscriptions'])):
             subs_list = (sub_content['subscriptions'])[x]
             for i in subs_list:
                 if i == "criteria":
                     print(subs_list['subscriptionId'])
-                else:
-                    print('No criteria in subscription found')  # Not sure if working
+#                else:
+#                   print('No criteria in subscription found')  # Working badly messing with print
 
 
 def delete_subs_criteria(url, headers):
