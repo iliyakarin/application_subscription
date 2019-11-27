@@ -108,5 +108,5 @@ user_auth64 = base64.b64encode(login_pass.encode()).decode()
 user_headers = {'Content-Type': 'application/json', 'Accept': 'application/json',
                 'Authorization': 'Basic %s' % user_auth64}
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     main()
