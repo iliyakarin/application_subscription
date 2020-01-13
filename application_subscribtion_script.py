@@ -100,20 +100,20 @@ def delete_subs_criteria(url, headers):
                 print('Server response {}'.format(delete.content))
 
 
- def delete_all_subs(url, headers):
-     """
-     Function deletes all subscriptions
-         Parameters:
-         url (str): takes url from the params.py
-         login (str): takes login from the params.py
-         secret (str): takes secret from the params.py
-         Returns:
-         List of strings with subscription id of that subscriptions that was deleted
-     """
-     sub_content = get_sub_content(url, headers)
-     print(sub_content)
-     delete = requests.delete(url, headers=headers)
-     print('Server response {}'.format(delete.content))
+def delete_all_subs(url, headers):
+    """
+    Function deletes all subscriptions
+        Parameters:
+        url (str): takes url from the params.py
+        login (str): takes login from the params.py
+        secret (str): takes secret from the params.py
+        Returns:
+        List of strings with subscription id of that subscriptions that was deleted
+    """
+    sub_content = get_sub_content(url, headers)
+    print(sub_content)
+    delete = requests.delete(url, headers=headers)
+    print('Server response {}'.format(delete.content))
 
 
 def main():
