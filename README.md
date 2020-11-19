@@ -1,4 +1,4 @@
-# application_subscribtion
+# application_subscription
 rest_api script for subscriptions management
 
 Create params.py file near main script with next arguments:
